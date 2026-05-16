@@ -111,13 +111,6 @@ function goToBooklists() {
   router.push({ name: 'booklists' })
 }
 
-function formatMode(location?: string) {
-  if (!location) return '线上'
-  if (location.includes('线上') && location.includes('线下')) return '线上+线下'
-  if (location.includes('线下')) return '线下'
-  return '线上'
-}
-
 function formatDateTime(isoStr?: string) {
   if (!isoStr) return ''
   try {
@@ -171,7 +164,7 @@ onMounted(async () => {
       endDate: item.endDate || '',
       startDateDisplay: formatDateTime(item.startDate),
       endDateDisplay: formatDateTime(item.endDate),
-      mode: formatMode(item.location),
+      mode: item.activityType === 'online' ? '线上' : '线下',
       host: `主理：${item.organizer?.username || '平台'}`,
       attendees: item.participantCount ?? 0,
       isParticipating: item.isParticipating ?? false,

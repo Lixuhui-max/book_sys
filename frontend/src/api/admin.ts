@@ -251,6 +251,7 @@ export async function createAdminActivity(payload: {
   startDate?: string
   endDate?: string
   location?: string
+  activityType?: string
   maxParticipants?: number
 }) {
   return getApiData<AdminActivityDto>('/api/admin/activities', {
@@ -267,6 +268,7 @@ export async function updateAdminActivity(activityId: string, payload: {
   startDate?: string
   endDate?: string
   location?: string
+  activityType?: string
   maxParticipants?: number
   approvalStatus?: string
 }) {

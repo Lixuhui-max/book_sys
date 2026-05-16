@@ -96,7 +96,7 @@ async function loadMyActivities() {
       endDate: item.endDate || '',
       startDateDisplay: formatDateTime(item.startDate),
       endDateDisplay: formatDateTime(item.endDate),
-      mode: item.location?.includes('线上') ? '线上' : '线下',
+      mode: item.activityType === 'online' ? '线上' : '线下',
       host: `主理：${item.organizer?.username || '平台'}`,
       attendees: item.participantCount ?? 0,
       isParticipating: item.isParticipating ?? false,

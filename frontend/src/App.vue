@@ -4,8 +4,6 @@
     <main :class="showShell ? 'page-shell' : 'page-shell auth-shell'">
       <RouterView />
     </main>
-    <AppFooter v-if="showShell" />
-    
     <Teleport to="body">
       <div v-if="alertVisible" class="modal-overlay" @click="hideAlert">
         <div class="modal-content" @click.stop>
@@ -49,7 +47,6 @@
 
 <script setup lang="ts">
 import NavBar from './components/NavBar.vue'
-import AppFooter from './components/AppFooter.vue'
 import { computed } from 'vue'
 import { useRoute } from 'vue-router'
 import { useAlert } from './composables/useAlert'

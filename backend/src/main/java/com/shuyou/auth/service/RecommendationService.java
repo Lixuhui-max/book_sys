@@ -34,11 +34,21 @@ public class RecommendationService {
     List<Map<String, Object>> recommendations;
     String reason;
     
-    if (categoryPreference.isEmpty()) {
+    int totalPreferred = categoryPreference.values().stream().mapToInt(Integer::intValue).sum();
+
+    if (totalPreferred < 2) {
       recommendations = getPopularBooks(allBooks, readBookCodes, limit);
       reason = "为您推荐平台热门图书";
     } else {
       recommendations = getPersonalizedBooks(allBooks, readBookCodes, categoryPreference, limit);
+      // fallback: fill remaining slots with popular books outside preferred tags
+      if (recommendations.size() < limit) {
+        List<String> excludeCodes = new ArrayList<>(readBookCodes);
+        for (Map<String, Object> rec : recommendations) {
+          excludeCodes.add((String) rec.get("id"));
+        }
+        recommendations.addAll(getPopularBooks(allBooks, excludeCodes, limit - recommendations.size()));
+      }
       String topCategory = categoryPreference.entrySet().stream()
         .max(Map.Entry.comparingByValue())
         .map(Map.Entry::getKey)

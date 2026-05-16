@@ -196,6 +196,14 @@ p {
   font-weight: 600;
 }
 
+.form-hint.warning {
+  color: #92400e;
+  background: #fef3c7;
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #fcd34d;
+}
+
 .auth-note {
   font-size: 0.9rem;
   color: var(--muted);
@@ -789,42 +797,6 @@ p {
   font-weight: 600;
 }
 
-.app-footer {
-  margin-top: auto;
-  padding: var(--space-lg);
-  border-top: 1px solid var(--border);
-  background: rgba(245, 240, 234, 0.9);
-}
-
-.footer-inner {
-  max-width: 1200px;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: var(--space-md);
-}
-
-.footer-title {
-  font-weight: 700;
-  font-size: 1.2rem;
-}
-
-.footer-text {
-  color: var(--muted);
-}
-
-.footer-links {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  color: var(--muted);
-}
-
-.footer-meta {
-  display: flex;
-  align-items: flex-end;
-  color: var(--muted);
-}
 
 @keyframes drift {
   0% {

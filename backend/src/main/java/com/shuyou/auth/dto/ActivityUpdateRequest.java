@@ -7,6 +7,7 @@ public record ActivityUpdateRequest(
   String startDate,
   String endDate,
   String location,
+  String activityType,
   Integer maxParticipants,
   String status,
   String approvalStatus

@@ -41,7 +41,7 @@ public class AuthService {
     account.setPhone("");
     account.setRole("USER");
     repository.save(account);
-    return new AuthResponse(account.getId(), account.getUsername(), account.getEmail(), tokenService.issueToken(account.getId()), account.getRole());
+    return new AuthResponse(account.getId(), account.getUsername(), account.getEmail(), tokenService.issueToken(account.getId()), account.getRole(), null);
   }
 
   public AuthResponse login(LoginRequest request) {
@@ -54,10 +54,18 @@ public class AuthService {
     if (!encoder.matches(request.password(), account.getPasswordHash())) {
       throw new IllegalArgumentException("账号或密码错误");
     }
-    if ("admin".equals(request.role()) && !"ADMIN".equalsIgnoreCase(account.getRole())) {
-      throw new IllegalArgumentException("该账号不是管理员");
+
+    boolean isAdminAccount = "ADMIN".equalsIgnoreCase(account.getRole());
+    boolean selectedAdmin = "admin".equals(request.role());
+
+    if (selectedAdmin && !isAdminAccount) {
+      throw new IllegalArgumentException("该账号不是管理员，请选择普通用户身份登录");
     }
-    return new AuthResponse(account.getId(), account.getUsername(), account.getEmail(), tokenService.issueToken(account.getId()), account.getRole());
+    if (!selectedAdmin && isAdminAccount) {
+      throw new IllegalArgumentException("该账号是管理员，请选择管理员身份登录");
+    }
+
+    return new AuthResponse(account.getId(), account.getUsername(), account.getEmail(), tokenService.issueToken(account.getId()), account.getRole(), null);
   }
 
   public AuthResponse adminLogin(AdminLoginRequest request) {
@@ -72,7 +80,7 @@ public class AuthService {
     if (!encoder.matches(request.password(), account.getPasswordHash())) {
       throw new IllegalArgumentException("管理员账号或密码错误");
     }
-    return new AuthResponse(account.getId(), account.getUsername(), account.getEmail(), tokenService.issueToken(account.getId()), account.getRole());
+    return new AuthResponse(account.getId(), account.getUsername(), account.getEmail(), tokenService.issueToken(account.getId()), account.getRole(), null);
   }
 
   private void validateCaptcha(String id, String code) {

@@ -174,6 +174,7 @@ const loginMethod = ref<'username' | 'email'>('username')
 const pending = ref(false)
 const error = ref('')
 
+
 const apiBase = ((import.meta as any).env?.VITE_API_BASE_URL as string | undefined) || 'http://localhost:8080'
 const apiBaseHint = computed(() => `后端地址：${apiBase}`)
 
@@ -290,12 +291,13 @@ async function onSubmit() {
 		const userRole = resp.data.role?.toLowerCase() as 'user' | 'admin'
 		authStore.login(resp.data.token, resp.data.username, String(resp.data.userId), userRole)
 
-		if (userRole === 'admin') {
+	if (userRole === 'admin') {
 			await router.push('/admin')
 		} else {
 			const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/'
 			await router.push(redirect)
 		}
+
 	} catch (e: any) {
 		error.value = e?.message || '请求失败'
 		await refreshCaptcha()

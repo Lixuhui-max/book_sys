@@ -216,6 +216,9 @@ public class ActivityService {
     if (request.location() != null) {
       item.setLocation(request.location());
     }
+    if (request.activityType() != null) {
+      item.setActivityType(request.activityType());
+    }
     if (request.maxParticipants() != null) {
       item.setMaxParticipants(request.maxParticipants());
     }
@@ -283,6 +286,7 @@ public class ActivityService {
     dto.put("title", item.getTitle());
     dto.put("description", item.getDescription());
     dto.put("location", item.getLocation());
+    dto.put("activityType", item.getActivityType() == null ? "offline" : item.getActivityType());
     dto.put("maxParticipants", item.getMaxParticipants());
     dto.put("participantCount", item.getParticipantCount());
     dto.put("startDate", item.getStartDate());

@@ -162,6 +162,7 @@ const locationOptions = ['线上', '线下']
 const createForm = ref({
   title: '',
   location: locationOptions[0],
+  activityType: 'online',
   startDate: '',
   endDate: '',
   description: '',
@@ -224,6 +225,7 @@ async function saveActivity(id: string) {
     const updated = await updateAdminActivity(id, {
       title: target.title,
       location: target.location,
+      activityType: target.location === '线上' ? 'online' : 'offline',
       startDate: target.startDate,
       endDate: target.endDate,
       description: target.description,
@@ -288,6 +290,7 @@ async function createActivity() {
     await createAdminActivity({
       title: createForm.value.title,
       location: createForm.value.location,
+      activityType: createForm.value.location === '线上' ? 'online' : 'offline',
       startDate: createForm.value.startDate || undefined,
       endDate: createForm.value.endDate || undefined,
       description: createForm.value.description,
@@ -296,6 +299,7 @@ async function createActivity() {
     createForm.value = {
       title: '',
       location: locationOptions[0],
+      activityType: 'online',
       startDate: '',
       endDate: '',
       description: '',

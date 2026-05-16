@@ -59,7 +59,7 @@ public class AdminActivityController {
                                                         @PathVariable String activityId,
                                                         @RequestParam String status) {
     UserAccount admin = userAuthService.requireAdmin(authorization);
-    return ApiResponse.ok(activityService.update(activityId, new ActivityUpdateRequest(null, null, null, null, null, null, null, status, null), admin));
+    return ApiResponse.ok(activityService.update(activityId, new ActivityUpdateRequest(null, null, null, null, null, null, null, null, status, null), admin));
   }
 
   @PutMapping("/{activityId}/approve")
